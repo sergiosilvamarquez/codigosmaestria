@@ -1,0 +1,79 @@
+# Configuración por defecto del Sistema de Optimización Energética
+# Versión 2.0
+
+# Configuración general del modelo
+modelo:
+  horizonte_temporal: 8760  # horas (año completo)
+  tolerancia_numerica: 1e-6
+  resolver_paralelo: true
+  
+# Configuración de optimización
+optimizacion:
+  metodo_por_defecto: 'cvxpy'
+  solver_preferido: 'ECOS'
+  tiempo_limite: 300  # segundos
+  gap_tolerancia: 0.01  # 1%
+  
+  # Configuración NSGA-II
+  nsga2:
+    poblacion: 100
+    generaciones: 200
+    probabilidad_cruce: 0.9
+    probabilidad_mutacion: 0.1
+    
+  # Configuración análisis de sensibilidad
+  sensibilidad:
+    variacion_por_defecto: 0.15  # ±15%
+    puntos_por_defecto: 11
+    
+# Configuración de incertidumbre
+incertidumbre:
+  simulaciones_monte_carlo: 1000
+  semilla_aleatoria: 42
+  
+  # Distribuciones por defecto
+  distribuciones:
+    costos:
+      tipo: 'normal'
+      variabilidad: 0.15
+    emisiones:
+      tipo: 'normal'
+      variabilidad: 0.10
+    factores_sociales:
+      tipo: 'triangular'
+      variabilidad: 0.20
+    demandas:
+      tipo: 'lognormal'
+      variabilidad: 0.25
+
+# Configuración regional
+region:
+  por_defecto: 'mexico'
+  año_referencia: 2024
+  moneda: 'USD'
+  
+# Configuración de exportación
+exportacion:
+  directorio_por_defecto: 'results'
+  formato_numeros: 2  # decimales
+  incluir_graficas: true
+  incluir_validacion: true
+  
+# Configuración de logging
+logging:
+  nivel: 'INFO'
+  archivo: 'optimizacion_energetica.log'
+  formato: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  
+# Parámetros técnicos avanzados
+tecnico:
+  factor_capacidad_por_defecto: 0.8
+  eficiencia_por_defecto: 0.85
+  vida_util_por_defecto: 20
+  tasa_descuento: 0.08
+  
+# Validación
+validacion:
+  ejecutar_automatica: true
+  correccion_automatica: true
+  nivel_severidad_minimo: 'warning'
